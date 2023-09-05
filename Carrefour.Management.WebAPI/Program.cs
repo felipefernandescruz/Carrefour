@@ -1,4 +1,8 @@
+using Carrefour.Management.Application;
+using Carrefour.Management.Application.OrderApplication;
 using Carrefour.Management.Repository.Context;
+using Carrefour.Management.Repository.Repository.IRepository;
+using Carrefour.Management.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
-
+builder.Services.AddAutoMapper(typeof(MappingConfig));
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
