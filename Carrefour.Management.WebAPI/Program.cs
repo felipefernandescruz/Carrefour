@@ -4,6 +4,10 @@ using Carrefour.Management.Repository.Context;
 using Carrefour.Management.Repository.Repository.IRepository;
 using Carrefour.Management.Repository.Repository;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using Carrefour.Management.Application.OrderApplication.Models.Dto;
+using Carrefour.Management.Application.OrderApplication.Validator;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,6 +24,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IValidator<OrderDTO>, OrderValidator>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

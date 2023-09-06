@@ -5,6 +5,8 @@ using Carrefour.Management.Application.OrderApplication.Reponses;
 using Carrefour.Management.Repository.Entities;
 using Carrefour.Management.Repository.Enum;
 using Carrefour.Management.Repository.Repository.IRepository;
+using FluentValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Carrefour.Management.Application.OrderApplication
 {
@@ -12,10 +14,12 @@ namespace Carrefour.Management.Application.OrderApplication
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
-        public OrderService(IOrderRepository orderRepository, IMapper mapper)
+        private readonly IValidator<OrderDTO> _validator;
+        public OrderService(IOrderRepository orderRepository, IMapper mapper, IValidator<OrderDTO> validator)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<GetBalanceResponse> GetBalance(DateTime? balanceDate)
@@ -40,6 +44,10 @@ namespace Carrefour.Management.Application.OrderApplication
 
         public async Task<bool> CreditOrder(OrderDTO orderDTO)
         {
+            var validator = await _validator.ValidateAsync(orderDTO);
+            if (validator.IsValid is false)
+                throw new BadRequestException(validator.Errors);
+
             if (orderDTO == null)
                 throw new BadRequestException("A ordem não contem dados");
 
@@ -53,6 +61,10 @@ namespace Carrefour.Management.Application.OrderApplication
 
         public async Task<bool> DebitOrder(OrderDTO orderDTO)
         {
+            var validator = await _validator.ValidateAsync(orderDTO);
+            if (validator.IsValid is false)
+                throw new BadRequestException(validator.Errors);
+
             if (orderDTO == null)
                 throw new BadRequestException("A ordem não contem dados");
 
