@@ -8,7 +8,7 @@ namespace Carrefour.Management.Application
     {
         public MappingConfig()
         {
-            CreateMap<Order, NewOrderDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO>().ReverseMap();
         }
     }
 }

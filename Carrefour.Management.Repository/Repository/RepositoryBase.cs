@@ -15,6 +15,7 @@ namespace Carrefour.Management.Repository.Repository
             _db = db;
             this.dbSet = _db.Set<T>();
         }
+
         public async Task CreateAsync(T entity)
         {
             await dbSet.AddAsync(entity);

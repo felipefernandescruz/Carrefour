@@ -1,12 +1,12 @@
 ﻿using System.Net;
 
-namespace Carrefour.Management.Application
+namespace Carrefour.Management.WebAPI
 {
-    public class APIResponse
+    public class APIResponse<T>
     {
         public HttpStatusCode StatusCode { get; set; }
         public bool IsSuccess { get; set; }
         public List<string> ErrorMessages { get; set; }
-        public object Result { get; set; }
+        public T Result { get; set; }
     }
 }

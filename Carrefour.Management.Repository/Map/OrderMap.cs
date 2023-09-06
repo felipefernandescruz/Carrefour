@@ -13,6 +13,5 @@ namespace Carrefour.Management.Repository.Map
                 .HasForeignKey(x => x.OrderTypeId)
             .OnDelete(DeleteBehavior.Restrict);
         }
-
     }
 }

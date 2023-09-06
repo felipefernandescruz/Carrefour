@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="OrderApplication\Reponses\" />
     <Folder Include="OrderApplication\Validator\" />
   </ItemGroup>
 
